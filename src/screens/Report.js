@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 const theme1="#5DBCB0";
@@ -17,6 +17,12 @@ const Report = ({navigation}) => {
             </View>
             <View style={styles.body}>
                 <View style={{width:'10%',borderWidth:3,borderRadius:12, borderColor:'#5DBCB0',alignSelf:'center', marginTop:10}} />
+
+                <ScrollView>
+                    <View style={{marginTop:20}}>
+                        <Text style={{fontSize:20, color:'red', alignSelf:'center', fontWeight:'800'}}>UNDER MAINTANCE</Text>
+                    </View>
+                </ScrollView>
             </View>
         </View>
     )

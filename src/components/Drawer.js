@@ -25,13 +25,12 @@ function CustomDrawer({navigation,currentUser,setUser}) {
       {/* <View style={styles.logo}> */}
         {/* <Image source={require('../../assets/logo.png')} /> */}
         <View style={{flexDirection:'column', flex:2, justifyContent:'space-between'}}>
-        <View style={{
+        <TouchableOpacity style={{
           flexDirection:'row',
           margin:10,
           marginLeft:30,
           marginBottom:20
-        }}>
-          
+        }} activeOpacity={0.5} onPress={() => navigation.navigate('Profile')}>
            {
              currentUser && currentUser.image ?
              
@@ -45,11 +44,13 @@ function CustomDrawer({navigation,currentUser,setUser}) {
               </View>
              )
            }
+           
            <View style={{alignItems:'center',alignSelf:'center', marginLeft:10}}>
            <Text style={{fontSize:20, color:'#5DBCB0', fontWeight:'500', alignSelf:'center'}}>Hello,</Text>
            <Text style={{fontSize:20, color:'#5DBCB0', fontWeight:'500', alignSelf:'center'}}>{currentUser && currentUser.name}</Text>
            </View>
-        </View>
+
+        </TouchableOpacity>
 
         <View style={{borderWidth:0.5, borderColor:'#5DBCB0'}} />
 

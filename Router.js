@@ -33,6 +33,7 @@ function HomeDrawer() {
       <Drawer.Screen name="Template" component={Template} options={{headerShown:false}} />
       <Drawer.Screen name="Report" component={Report} options={{headerShown:false}} />
       <Drawer.Screen name="ChooseDoctor" component={ChooseDoctor} options={{headerShown:false}} />
+      <Drawer.Screen name="Profile" component={Profile} options={{headerShown:false}} />
       <Drawer.Screen name="Final" component={FinalPoster} options={{headerShown:false}} />
     </Drawer.Navigator>
   );

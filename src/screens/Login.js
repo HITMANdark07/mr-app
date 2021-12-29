@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image,TouchableOpacity, ActivityIndicator, ToastAndroid } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons";
 import InputText from '../components/InputText';
 import axios from 'axios';
@@ -11,6 +11,7 @@ const theme1 = "#5DBCB0";
 const Login = ({setUser}) => {
     const [name, setName] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [loading, setLoading] = React.useState(false);
     const handleChange = (name, e) => {
         switch(name){
             case 'name':
@@ -24,15 +25,23 @@ const Login = ({setUser}) => {
         }
     }
     const login = () => {
+        setLoading(true);
         axios.post(`${API}/login`, {
             email:name,
             password:password
         }).then((response) => {
             if(response.data.responseCode){
+                setLoading(false);
                 setUser(response.data.responseData);
+            }else{
+                ToastAndroid.showWithGravity(response.data.responseText, ToastAndroid.LONG, ToastAndroid.CENTER);
+                setLoading(false);
             }
+            
         }).catch((err) => {
             console.log("error",err);
+            ToastAndroid.showWithGravity(err, ToastAndroid.LONG, ToastAndroid.CENTER);
+            setLoading(false);
         }) 
     }
     return (
@@ -46,12 +55,24 @@ const Login = ({setUser}) => {
                 <View style={{flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
                     <InputText name="campaign" icon="campaign" placeholder="Campaign Code" handleChange={handleChange} type="numeric" />
                     <InputText name="name" icon="person" placeholder="Email" handleChange={handleChange}  />
-                    <InputText name="password" icon="lock" placeholder="Password" handleChange={handleChange}  />
+                    <InputText name="password" icon="lock" placeholder="Password" handleChange={handleChange} password={true}  />
                     <Text style={{alignItems:'flex-end', textDecorationLine:'underline'}} >Forgot Password ?</Text>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={login}>
-                    <Text style={{fontSize:22, fontWeight:'700', color:'#fff'}}>Login</Text>
-                </TouchableOpacity>
+                {
+                    loading ?
+                    (
+                        <View style={{alignSelf:'center'}}>
+                            <ActivityIndicator size="large" color={theme1} />
+                        </View>
+                    )
+                    :
+                    (
+                        <TouchableOpacity style={styles.button} onPress={login}>
+                            <Text style={{fontSize:22, fontWeight:'700', color:'#fff'}}>Login</Text>
+                        </TouchableOpacity>
+                    )
+                }
+                
             </View>
         </View>
     )
