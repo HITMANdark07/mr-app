@@ -11,20 +11,20 @@ import axios from 'axios';
 import moment from 'moment';
 
 const theme1="#5DBCB0";
-const UpdateDoctor = ({currentUser,navigation}) => {
-
-    const [selectedValue, setSelectedValue] = React.useState("");
+const UpdateDoctor = ({currentUser,navigation, route}) => {
+    const doctor = route.params.doctor;
+    const [selectedValue, setSelectedValue] = React.useState(doctor.brand_id);
     const [brands, setBrands] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
-    const [email, setEmail] = React.useState("");
+    const [email, setEmail] = React.useState(doctor.email);
     const [sendimage, setSendImage] = React.useState(null);
-    const [image, setImage] = React.useState(null);
+    const [image, setImage] = React.useState(doctor.doc_image ? doctor.doc_image : null);
     const [show1, setShow1] = React.useState(false);
     const [show2, setShow2] = React.useState(false);
-    const [bdate, setBDate] = React.useState(new Date());
-    const [adate, setADate] = React.useState(new Date());
-    const [dName, setDName] = React.useState("");
-    const [phone, setPhone] = React.useState("");
+    const [bdate, setBDate] = React.useState(new Date(doctor.birth_date));
+    const [adate, setADate] = React.useState(new Date(doctor.anniversary_date));
+    const [dName, setDName] = React.useState(doctor.doctor_name);
+    const [phone, setPhone] = React.useState(doctor.mobile);
     const handleChange = (name,e) => {
         switch(name){
             case 'dName':
@@ -46,7 +46,7 @@ const UpdateDoctor = ({currentUser,navigation}) => {
             if(res.data.responseCode){
                 setBrands(res.data.responseData);
                 setLoading(false);
-                setSelectedValue(res.data.responseData[0].id);
+                // setSelectedValue(res.data.responseData[0].id);
             }
         }).catch((err) => {
             console.warn(err);
@@ -79,10 +79,11 @@ const UpdateDoctor = ({currentUser,navigation}) => {
     const save = () => {
         const formdata = new FormData();
         setLoading(true);
-        formdata.append('mr_id', currentUser.id);
+        formdata.append('doctor_id', doctor.doc_id);
         formdata.append('brand_id', selectedValue);
         formdata.append('doctor_name', dName);
         formdata.append('mobile', phone);
+        formdata.append('status',1);
         formdata.append('email', email);
         formdata.append('birth_date',moment(bdate).format('YYYY-MM-DD'));
         formdata.append('anniversary_date',moment(adate).format('YYYY-MM-DD'));
@@ -92,8 +93,8 @@ const UpdateDoctor = ({currentUser,navigation}) => {
                 name: `image.${sendimage.mime.split("/")[1]}`,
                 type: sendimage.mime
             });
-            console.log(sendimage.path);
-            console.log(sendimage.mime);
+            // console.log(sendimage.path);
+            // console.log(sendimage.mime);
         }
   
         console.log(formdata);
@@ -117,7 +118,7 @@ const UpdateDoctor = ({currentUser,navigation}) => {
 
         axios({
             method:'post',
-            url:`${API}/add_doctor`,
+            url:`${API}/doctor_update`,
             data:formdata,
         }).then((res) => {
             setLoading(false);
@@ -125,10 +126,10 @@ const UpdateDoctor = ({currentUser,navigation}) => {
             if(res.data.responseCode){
                 console.log(res.data.responseCode);
                 ToastAndroid.showWithGravity(res.data.responseText, ToastAndroid.LONG, ToastAndroid.CENTER);
-                setDName("");
-                setPhone("");
-                setEmail("");
-                setImage(null);
+                // setDName("");
+                // setPhone("");
+                // setEmail("");
+                // setImage(null);
                 setSendImage(null);
             }else{
                 ToastAndroid.showWithGravity(res.data.responseText, ToastAndroid.LONG, ToastAndroid.CENTER);
@@ -144,9 +145,9 @@ const UpdateDoctor = ({currentUser,navigation}) => {
 
     const  openGallery = () => {
         ImagePicker.openPicker({mediaType:'photo', cropping:true, includeBase64:true}).then(res => {
-            console.log({...res,data:""});
+            // console.log({...res,data:""});
             setSendImage(res);
-            setImage(res.data);
+            setImage(`data:image/jpeg;base64,${res.data}`);
         }).catch(err => {
             console.log(err);
         })
@@ -156,9 +157,8 @@ const UpdateDoctor = ({currentUser,navigation}) => {
         let granted = await requestCameraPermission();
         if(granted){
             ImagePicker.openCamera({mediaType:'photo', cropping:true, includeBase64:true}).then(res => {
-                console.log({...res,data:""});
                 setSendImage(res);
-                setImage(res.data);
+                setImage(`data:image/jpeg;base64,${res.data}`);
             }).catch(err => {
                 console.log(err);
             })
@@ -173,7 +173,7 @@ const UpdateDoctor = ({currentUser,navigation}) => {
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <Icon name="menu" size={35} color={'#fff'} />
                 </TouchableOpacity>
-                <Text style={{color:'#fff', alignSelf:'center', fontSize:22, fontWeight:'600'}}>Add Doctor</Text>
+                <Text style={{color:'#fff', alignSelf:'center', fontSize:22, fontWeight:'600'}}>Update Doctor</Text>
                 <View>
                     <Image style={{height:35, width:35}} source={require("../../assets/logowhite.png")} />
                 </View>
@@ -220,7 +220,7 @@ const UpdateDoctor = ({currentUser,navigation}) => {
                         image ?
                         (
                             <View style={{margin:10, flexDirection:'column', justifyContent:'space-between'}}>
-                                <Image source={{uri:`data:image/jpeg;base64,${image}`}} style={{height: 200, width: 200, borderRadius:20}} />
+                                <Image source={{uri:`${image}`}} style={{height: 200, width: 200, borderRadius:20}} />
                                 <TouchableOpacity onPress={() => setImage(null)} style={styles.cancel}>
                                     <Text style={{color:'#fff'}}>CANCEL</Text>
                                 </TouchableOpacity>
@@ -285,8 +285,8 @@ const UpdateDoctor = ({currentUser,navigation}) => {
                             }}
                     />}
 
-                    <TouchableOpacity style={styles.button} activeOpacity={0.6} onPress={save}>
-                        <Text style={{fontSize:22, fontWeight:'700', color:'#fff'}}>Save</Text>
+                    <TouchableOpacity style={styles.button} activeOpacity={0.6} onPress={save} >
+                        <Text style={{fontSize:22, fontWeight:'700', color:'#fff'}}>Update</Text>
                     </TouchableOpacity>
                 </View>
                 </ScrollView>)

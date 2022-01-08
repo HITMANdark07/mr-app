@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
@@ -8,16 +8,19 @@ import TemplateCard from '../components/TemplateCard';
 
 const theme1="#5DBCB0";
 const Template = ({navigation, route}) => {
-    console.log(route);
+    // console.log(route);
     const [template, setTemplate] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
     const isFocused = useIsFocused();
     const getTemplates = () => {
         axios.post(`${API}/template_list`,{}).then((res) =>{
+            setLoading(false);
             if(res.data.responseCode){
                 setTemplate(res.data.responseData)
             }
         }).catch((err) => {
             console.warn(err);
+            setLoading(false);
         })
     }
 
@@ -39,15 +42,26 @@ const Template = ({navigation, route}) => {
                 <View style={{width:'10%',borderWidth:3,borderRadius:12, borderColor:'#5DBCB0',alignSelf:'center', marginTop:10}} />
 
                 <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={{flexDirection:'column', justifyContent:'space-evenly', width:'90%', alignSelf:'center', marginTop:20}}>
-                    {template.map((temp) => (
-                        <TouchableOpacity key={temp.id} activeOpacity={0.6} onPress={() => {
-                            navigation.navigate('ChooseDoctor', {temp});
-                        }}>
-                            <TemplateCard image={temp.image} title={temp.title} description={temp.description} />
-                        </TouchableOpacity>
-                    ))}
-                </View>
+                {
+                    loading ?
+                    (
+                        <View style={{flex: 1}}>
+                            <ActivityIndicator size="large" color={theme1} />
+                        </View>
+                    )
+                    :
+                    (
+                        <View style={{flexDirection:'column', justifyContent:'space-evenly', width:'90%', alignSelf:'center', marginTop:20}}>
+                            {template.map((temp) => (
+                                <TouchableOpacity key={temp.id} activeOpacity={0.6} onPress={() => {
+                                    navigation.navigate('ChooseDoctor', {temp});
+                                }}>
+                                    <TemplateCard image={temp.image} title={temp.title} description={temp.description} />
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+                    )
+                }
                 </ScrollView>
             </View>
             <TouchableOpacity style={styles.add} activeOpacity={0.6} onPress={() => navigation.navigate('AddDoctor')}>

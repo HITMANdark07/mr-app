@@ -15,7 +15,6 @@ const ChooseDoctor = ({currentUser,navigation, route:{params:{temp}}}) => {
     const [name , setName] = React.useState("");
     const [doctors, setDoctors] = React.useState([]);
     const [selectedValue, setSelectedValue] = React.useState({});
-    console.log(temp);
 
     const requestCameraPermission = async () => {
         try {
@@ -53,7 +52,6 @@ const ChooseDoctor = ({currentUser,navigation, route:{params:{temp}}}) => {
 
     const  openGallery = () => {
         ImagePicker.openPicker({mediaType:'photo', cropping:true, includeBase64:true}).then(res => {
-            console.log({...res,data:""});
             setImage(`data:image/jpeg;base64,${res.data}`);
         }).catch(err => {
             console.log(err);
@@ -63,7 +61,7 @@ const ChooseDoctor = ({currentUser,navigation, route:{params:{temp}}}) => {
         let granted = await requestCameraPermission();
         if(granted){
             ImagePicker.openCamera({mediaType:'photo', cropping:true, includeBase64:true}).then(res => {
-                console.log({...res,data:""});
+                // console.log({...res,data:""});
                 setImage(`data:image/jpeg;base64,${res.data}`);
             }).catch(err => {
                 console.log(err);

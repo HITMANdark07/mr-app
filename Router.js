@@ -18,6 +18,7 @@ import Template from './src/screens/Template';
 import Report from './src/screens/Report';
 import ChooseDoctor from './src/screens/ChooseDoctor';
 import FinalPoster from './src/screens/FinalPoster';
+import UpdateDoctor from './src/screens/UpdateDoctor';
 
 const theme1="#5DBCB0";
 const Stack = createNativeStackNavigator();
@@ -27,14 +28,15 @@ const Tab = createBottomTabNavigator();
 function HomeDrawer() {
   return (
     <Drawer.Navigator screenOptions={{drawerStyle:{backgroundColor:'transparent'}}} drawerContent={(props) => <CustomDrawer {...props}  /> }>
-      <Drawer.Screen name="HomeDrawer" component={Home} options={{headerShown:false}} />
-      <Drawer.Screen name="AddDoctor" component={AddDoctor} options={{headerShown:false}} />
-      <Drawer.Screen name="ManageDoctor" component={ManageDoctor} options={{headerShown:false}} />
-      <Drawer.Screen name="Template" component={Template} options={{headerShown:false}} />
-      <Drawer.Screen name="Report" component={Report} options={{headerShown:false}} />
-      <Drawer.Screen name="ChooseDoctor" component={ChooseDoctor} options={{headerShown:false}} />
-      <Drawer.Screen name="Profile" component={Profile} options={{headerShown:false}} />
-      <Drawer.Screen name="Final" component={FinalPoster} options={{headerShown:false}} />
+      <Drawer.Screen name="HomeDrawer" component={Home} options={{headerShown:false, unmountOnBlur:true}} />
+      <Drawer.Screen name="AddDoctor" component={AddDoctor} options={{headerShown:false, unmountOnBlur:true}} />
+      <Drawer.Screen name="ManageDoctor" component={ManageDoctor} options={{headerShown:false, unmountOnBlur:true}} />
+      <Drawer.Screen name="UpdateDoctor" component={UpdateDoctor} options={{headerShown:false, unmountOnBlur:true}} />
+      <Drawer.Screen name="Template" component={Template} options={{headerShown:false, unmountOnBlur:true}} />
+      <Drawer.Screen name="Report" component={Report} options={{headerShown:false, unmountOnBlur:true}} />
+      <Drawer.Screen name="ChooseDoctor" component={ChooseDoctor} options={{headerShown:false, unmountOnBlur:true}} />
+      <Drawer.Screen name="Profile" component={Profile} options={{headerShown:false, unmountOnBlur:true}} />
+      <Drawer.Screen name="Final" component={FinalPoster} options={{headerShown:false, unmountOnBlur:true}} />
     </Drawer.Navigator>
   );
 }
@@ -58,8 +60,8 @@ function HomeScreen(){
       tabBarActiveTintColor: theme1,
       tabBarInactiveTintColor: 'gray',
       })}>
-      <Tab.Screen name="Home" component={HomeDrawer} options={{headerShown:false}}  />
-      <Tab.Screen name="Report" component={Report} options={{headerShown:false}} />
+      <Tab.Screen name="Home" component={HomeDrawer} options={{headerShown:false, unmountOnBlur:true}}  />
+      <Tab.Screen name="Report" component={Report} options={{headerShown:false, unmountOnBlur:true}} />
     </Tab.Navigator>
   )
 }
