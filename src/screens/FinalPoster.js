@@ -44,7 +44,7 @@ const FinalPoster = ({navigation, route:{params:{image, profile, title, descript
                         {/* <Text style={styles.desc}>{description}</Text> */}
                         <View style={{flexDirection:'row', marginTop:5, alignItems:'center'}}>
                             <Image source={{uri:profile ? profile : ig}} style={{width:50, height:50, borderRadius:100}} />
-                            <Text style={{marginLeft:20, fontSize:16 , fontWeight:'700'}}>{name ? name: 'Dr. XYZ'}</Text>
+                            <Text style={{marginLeft:20, fontSize:16 , fontWeight:'700'}}> Dr. {name ? name: 'Dr. XYZ'}</Text>
                         </View>
 
                     </ViewShot>

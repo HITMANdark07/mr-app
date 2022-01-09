@@ -200,7 +200,7 @@ const UpdateDoctor = ({currentUser,navigation, route}) => {
                     >
                         {
                             brands.map((b) => (
-                                <Picker.Item key={b.id} label={b.name} value={b.id} />
+                                <Picker.Item key={b.id} label={b.name} color='#000' value={b.id} />
                             ))
                         }
                         {/* <Picker.Item label="JavaScript" value="js" /> */}
@@ -230,12 +230,12 @@ const UpdateDoctor = ({currentUser,navigation, route}) => {
                         (
                             <View style={{flexDirection:'row', margin:10, justifyContent:'space-between'}}>
                                 <TouchableOpacity style={styles.uploads} activeOpacity={0.6} onPress={() => openGallery()}>
-                                    <Text>Gallery</Text>
-                                    <Icon name="image" size={30} />
+                                    <Text style={{color:'#6B6B6B'}}>Gallery</Text>
+                                    <Icon name="image" size={30} color="#6B6B6B" />
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.uploads} activeOpacity={0.6} onPress={() => openCamera()}>
-                                    <Text>Camera</Text>
-                                    <Icon name="camera" size={30} />
+                                    <Text style={{color:'#6B6B6B'}}>Camera</Text>
+                                    <Icon name="camera" size={30} color="#6B6B6B" />
                                 </TouchableOpacity>
                             </View>
                         )

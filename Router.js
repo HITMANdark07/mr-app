@@ -14,11 +14,14 @@ LogBox.ignoreLogs(['Reanimated 2']);
 import { connect } from 'react-redux';
 import AddDoctor from './src/screens/AddDoctor';
 import ManageDoctor from './src/screens/ManageDoctor';
+import ReportDrawer from './src/screens/ReportDrawer';
 import Template from './src/screens/Template';
 import Report from './src/screens/Report';
 import ChooseDoctor from './src/screens/ChooseDoctor';
 import FinalPoster from './src/screens/FinalPoster';
 import UpdateDoctor from './src/screens/UpdateDoctor';
+import Doctor from './src/screens/Doctor';
+import ChooseTemplate from './src/screens/ChooseTemplate';
 
 const theme1="#5DBCB0";
 const Stack = createNativeStackNavigator();
@@ -35,6 +38,9 @@ function HomeDrawer() {
       <Drawer.Screen name="Template" component={Template} options={{headerShown:false, unmountOnBlur:true}} />
       <Drawer.Screen name="Report" component={Report} options={{headerShown:false, unmountOnBlur:true}} />
       <Drawer.Screen name="ChooseDoctor" component={ChooseDoctor} options={{headerShown:false, unmountOnBlur:true}} />
+      <Drawer.Screen name="ChooseTemplate" component={ChooseTemplate} options={{headerShown:false, unmountOnBlur:true}} />
+      <Drawer.Screen name="ReportDrawer" component={ReportDrawer} options={{headerShown:false, unmountOnBlur:true}} />
+      <Drawer.Screen name="Doctor" component={Doctor} options={{headerShown:false, unmountOnBlur:true}} />
       <Drawer.Screen name="Profile" component={Profile} options={{headerShown:false, unmountOnBlur:true}} />
       <Drawer.Screen name="Final" component={FinalPoster} options={{headerShown:false, unmountOnBlur:true}} />
     </Drawer.Navigator>

@@ -87,12 +87,12 @@ function CustomDrawer({navigation,currentUser,setUser}) {
           <Text style={styles.menuText}>Templates</Text>
       </View>
       </TouchableOpacity>
-      {/* <TouchableOpacity onPress={() => navigation.navigate('Report')} >
+      <TouchableOpacity onPress={() => navigation.navigate('ReportDrawer')} >
       <View style={styles.drawerMenu} >
           <Ico name="analytics" style={styles.icon} color={themeColor2} size={30} />
           <Text style={styles.menuText}>Reports</Text>
       </View>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => signOut()}>
         <View style={styles.drawerMenu} >
             <Ico name="logout" style={styles.icon} color={themeColor2} size={30} />

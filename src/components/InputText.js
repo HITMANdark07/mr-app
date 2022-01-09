@@ -2,15 +2,15 @@ import React from 'react'
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-const InputText = ({icon, placeholder,type, name, handleChange,value, password }) => {
+const InputText = ({icon, placeholder,type, name, handleChange,value, password, disable }) => {
 
     return (
         <View style={styles.input}>
             <Icon name={icon} style={styles.icon} size={30} color="#6B6B6B" />
             {type ? 
-            (<TextInput style={{flex:1, color:'#000'}} value={value} autoCapitalize='none'  onChangeText={(e) => handleChange(name, e)} placeholder={placeholder} keyboardType={type} />)
+            (<TextInput style={{flex:1, color:'#000'}} value={value} editable={disable} autoCapitalize='none' placeholderTextColor="#000"  onChangeText={(e) => handleChange(name, e)} placeholder={placeholder} keyboardType={type} />)
             :
-            (<TextInput style={{flex:1, color:'#000'}} value={value} autoCapitalize='none' onChangeText={(e) => handleChange(name, e)} placeholder={placeholder} secureTextEntry={password} />)
+            (<TextInput style={{flex:1, color:'#000'}} value={value} editable={disable} autoCapitalize='none' placeholderTextColor="#000" onChangeText={(e) => handleChange(name, e)} placeholder={placeholder} secureTextEntry={password} />)
             }
         </View>
     )

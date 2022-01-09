@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView,PermissionsAndroid, ToastAndroid, } from 'react-native';
 import TemplateCard from '../components/TemplateCard';
 import ImagePicker from 'react-native-image-crop-picker';

@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Fontisto';
 import Ico from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 import {API} from '../../api.config';
+import DoctorListItem from '../components/DoctorListItem';
 import CircularProgress from '../components/CircularProgress';
 import {connect} from 'react-redux';
 const ig =
@@ -107,39 +108,7 @@ const ManageDoctor = ({navigation, currentUser}) => {
                 alignSelf: 'center',
               }}>
               {doctors.map((doc, idx) => (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    margin: 10,
-                  }}
-                  key={idx}>
-                  <View>
-                    {doc.doc_image ? (
-                      <Image
-                        source={{uri: doc.doc_image}}
-                        style={{width: 70, height: 70, borderRadius: 100}}
-                      />
-                    ) : (
-                      <Image
-                        source={{uri: ig}}
-                        style={{width: 70, height: 70, borderRadius: 100}}
-                      />
-                    )}
-                  </View>
-                  <Text
-                    style={{alignSelf: 'center', fontSize: 18, color: '#000'}}>
-                    {doc.doctor_name}
-                  </Text>
-                  <TouchableOpacity style={{alignSelf:'center'}} onPress={() => navigation.navigate('UpdateDoctor', {doctor:doc})}>
-                  <Ico
-                    name="edit"
-                    size={25}
-                    color={theme1}
-                    style={{alignSelf: 'center'}}
-                  />
-                  </TouchableOpacity>
-                </View>
+                <DoctorListItem doc={doc} navigation={navigation} key={idx} />
               ))}
             </View>
           )}
